@@ -1,13 +1,13 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 def get_keyboard_inline():
-    keyboard_inline = InlineKeyboardMarkup(row_width=2)
+    keyboard_inline = InlineKeyboardMarkup(row_width=1)
     but_inline = InlineKeyboardButton('Про облака', url='https://ru.wikipedia.org/wiki/%D0%9E%D0%B1%D0%BB%D0%B0%D0%BA%D0%B0')
     keyboard_inline.add(but_inline)
     return keyboard_inline
 
 def get_keyboard_inline2():
-    keyboard_inline = InlineKeyboardMarkup(row_width=2)
+    keyboard_inline = InlineKeyboardMarkup(row_width=1)
     but_inline2 = InlineKeyboardButton('Про закаты', url='https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BA%D0%B0%D1%82')
     keyboard_inline.add(but_inline2)
     return keyboard_inline
