@@ -1,9 +1,11 @@
 from aiogram import Bot, Dispatcher, types, executor
 from config import TELEGRAM_TOKEN
 from keboard.keyboards import get_keyboard_1, get_keyboard_2
+from keboard.key_inline import get_keyboard_inline, get_keyboard_inline2, get_keyboard_inline3
 
 bot = Bot(token= TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
+
 
 
 async def set_commands(bot: Bot):
@@ -24,11 +26,11 @@ async def start(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == 'Отправь фото неба')
 async def button_1_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://kartinki.pics/uploads/posts/2021-07/1626901824_15-kartinkin-com-p-krasivoe-nebo-tekstura-krasivo-15.jpg', caption= 'Красивое небо')
+    await bot.send_photo(message.chat.id, photo= 'https://kartinki.pics/uploads/posts/2021-07/1626901824_15-kartinkin-com-p-krasivoe-nebo-tekstura-krasivo-15.jpg', caption= 'Красивое небо', reply_markup= get_keyboard_inline())
 
 @dp.message_handler(lambda message: message.text == 'Отправь фото заката')
 async def button_2_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://lh5.googleusercontent.com/proxy/-KZIq0Lhl46iD87wrSxUf1SzGgDXU5oar4Wr-bW9_aRVMV7l93hFV3IPK4i7YGsZQAyMrkrlEKJvy38BUBceWBvq0AmNNfoGsIPFkffj0TR_4Tv8IHElSeX4zl8DkmwMybz36LHFhY6Ykw12AyQY1-YVaN5U46ef', caption= 'Красивый закат')
+    await bot.send_photo(message.chat.id, photo= 'https://lh5.googleusercontent.com/proxy/-KZIq0Lhl46iD87wrSxUf1SzGgDXU5oar4Wr-bW9_aRVMV7l93hFV3IPK4i7YGsZQAyMrkrlEKJvy38BUBceWBvq0AmNNfoGsIPFkffj0TR_4Tv8IHElSeX4zl8DkmwMybz36LHFhY6Ykw12AyQY1-YVaN5U46ef', caption= 'Красивый закат', reply_markup= get_keyboard_inline2())
 
 @dp.message_handler(lambda message: message.text == 'Перейти на следующую клавиатуру')
 async def button_3_click(message: types.Message):
@@ -36,7 +38,7 @@ async def button_3_click(message: types.Message):
 
 @dp.message_handler(lambda message: message.text == 'Отправь фото лисы')
 async def button_4_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://fbi.cults3d.com/uploaders/25181852/illustration-file/31604d4d-352a-4050-90f2-97fea9c69bc4/Fox-1.png', caption= 'Лиса из майнкрафта')
+    await bot.send_photo(message.chat.id, photo= 'https://fbi.cults3d.com/uploaders/25181852/illustration-file/31604d4d-352a-4050-90f2-97fea9c69bc4/Fox-1.png', caption= 'Лиса из майнкрафта', reply_markup= get_keyboard_inline3())
 
 @dp.message_handler(lambda message: message.text == 'Отправь фото белки')
 async def button_5_click(message: types.Message):
