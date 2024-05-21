@@ -1,7 +1,6 @@
 from aiogram import Bot, Dispatcher, types, executor
 from config import TELEGRAM_TOKEN
-from keboard.keyboards import get_keyboard_1, get_keyboard_2
-from keboard.key_inline import get_keyboard_inline, get_keyboard_inline2, get_keyboard_inline3
+from keboard.keyboards import keyboard1, keyboard2, keyboard3, keyboard4
 
 bot = Bot(token= TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
@@ -22,32 +21,25 @@ async def set_commands(bot: Bot):
 
 @dp.message_handler(commands= 'start')
 async def start(message: types.Message):
-    await message.answer('Привет, я твой первый бот', reply_markup= get_keyboard_1())
+    await message.reply('Есть несколько вариантов картинок: ', reply_markup= keyboard1)
 
-@dp.message_handler(lambda message: message.text == 'Отправь фото неба')
-async def button_1_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://kartinki.pics/uploads/posts/2021-07/1626901824_15-kartinkin-com-p-krasivoe-nebo-tekstura-krasivo-15.jpg', caption= 'Красивое небо', reply_markup= get_keyboard_inline())
+@dp.callback_query_handler(lambda c: c.data == 'go_to_0')
+async def go_to_1(callback_query: types.CallbackQuery):
+    await callback_query.message.edit_text('Есть несколько вариантов картинок: ', reply_markup= keyboard1)
+@dp.callback_query_handler(lambda c: c.data == 'go_to_1')
+async def go_to_1(callback_query: types.CallbackQuery):
+    await callback_query.message.edit_text('Котики', reply_markup= keyboard2)
+    await bot.send_photo(callback_query.from_user.id, photo= 'https://prochepetsk.ru/userfiles/picfullsize/image-1677667806_9146.jpg')
 
-@dp.message_handler(lambda message: message.text == 'Отправь фото заката')
-async def button_2_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://lh5.googleusercontent.com/proxy/-KZIq0Lhl46iD87wrSxUf1SzGgDXU5oar4Wr-bW9_aRVMV7l93hFV3IPK4i7YGsZQAyMrkrlEKJvy38BUBceWBvq0AmNNfoGsIPFkffj0TR_4Tv8IHElSeX4zl8DkmwMybz36LHFhY6Ykw12AyQY1-YVaN5U46ef', caption= 'Красивый закат', reply_markup= get_keyboard_inline2())
+@dp.callback_query_handler(lambda c: c.data == 'go_to_2')
+async def go_to_2(callback_query: types.CallbackQuery):
+    await callback_query.message.edit_text('Собаки', reply_markup= keyboard3)
+    await bot.send_photo(callback_query.from_user.id, photo='https://storage.yandexcloud.net/storage.yasno.media/nat-geo/images/2023/6/28/a9c7c5ba9c2e4caa9330c1ec5c0fc499.max-2000x1000.jpg')
 
-@dp.message_handler(lambda message: message.text == 'Перейти на следующую клавиатуру')
-async def button_3_click(message: types.Message):
-    await message.answer('Ты можешь посмотреть животных', reply_markup= get_keyboard_2())
-
-@dp.message_handler(lambda message: message.text == 'Отправь фото лисы')
-async def button_4_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://fbi.cults3d.com/uploaders/25181852/illustration-file/31604d4d-352a-4050-90f2-97fea9c69bc4/Fox-1.png', caption= 'Лиса из майнкрафта', reply_markup= get_keyboard_inline3())
-
-@dp.message_handler(lambda message: message.text == 'Отправь фото белки')
-async def button_5_click(message: types.Message):
-    await bot.send_photo(message.chat.id, photo= 'https://www.shutterstock.com/image-photo/portrait-eurasian-red-squirrel-front-260nw-283837010.jpg', caption= 'Белка')
-
-@dp.message_handler(lambda message: message.text == 'Вернуться на 1 клавиатуру')
-async def button_6_click(message: types.Message):
-    await message.answer('Ты можешь вернуться', reply_markup= get_keyboard_1())
-
+@dp.callback_query_handler(lambda c: c.data == 'go_to_3')
+async def go_to_3(callback_query: types.CallbackQuery):
+    await callback_query.message.edit_text('Пингвины', reply_markup= keyboard4)
+    await bot.send_photo(callback_query.from_user.id, photo='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Emperor_penguin.jpg/273px-Emperor_penguin.jpg')
 
 @dp.message_handler(commands= 'help')
 async def help(message: types.Message):
