@@ -1,10 +1,12 @@
 from aiogram import Bot, Dispatcher, types, executor
 from config import TELEGRAM_TOKEN
 from keboard.keyboards import keyboard1, keyboard2, keyboard3, keyboard4
+from database.database import initialize_dp, add_user, get_user
 
 bot = Bot(token= TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
 
+initialize_dp()
 
 
 async def set_commands(bot: Bot):
@@ -21,25 +23,31 @@ async def set_commands(bot: Bot):
 
 @dp.message_handler(commands= 'start')
 async def start(message: types.Message):
-    await message.reply('Есть несколько вариантов картинок: ', reply_markup= keyboard1)
+    user = get_user(message.from_user.id)
+    if user is None:
+        add_user(message.from_user.id, message.from_user.username, message.from_user.first_name, message.from_user.last_name)
+        await message.reply('Есть несколько вариантов картинок: ', reply_markup= keyboard1)
+    else:
+        await message.reply('Есть несколько вариантов картинок: ', reply_markup=keyboard1)
 
 @dp.callback_query_handler(lambda c: c.data == 'go_to_0')
 async def go_to_1(callback_query: types.CallbackQuery):
     await callback_query.message.edit_text('Есть несколько вариантов картинок: ', reply_markup= keyboard1)
+
 @dp.callback_query_handler(lambda c: c.data == 'go_to_1')
 async def go_to_1(callback_query: types.CallbackQuery):
     await callback_query.message.edit_text('Котики', reply_markup= keyboard2)
-    await bot.send_photo(callback_query.from_user.id, photo= 'https://prochepetsk.ru/userfiles/picfullsize/image-1677667806_9146.jpg')
+    await bot.send_photo(callback_query.from_user.id, photo= 'https://prochepetsk.ru/userfiles/picfullsize/image-1677667806_9146.jpg', caption= 'Кошка')
 
 @dp.callback_query_handler(lambda c: c.data == 'go_to_2')
 async def go_to_2(callback_query: types.CallbackQuery):
     await callback_query.message.edit_text('Собаки', reply_markup= keyboard3)
-    await bot.send_photo(callback_query.from_user.id, photo='https://storage.yandexcloud.net/storage.yasno.media/nat-geo/images/2023/6/28/a9c7c5ba9c2e4caa9330c1ec5c0fc499.max-2000x1000.jpg')
+    await bot.send_photo(callback_query.from_user.id, photo='https://storage.yandexcloud.net/storage.yasno.media/nat-geo/images/2023/6/28/a9c7c5ba9c2e4caa9330c1ec5c0fc499.max-2000x1000.jpg', caption= 'Собака')
 
 @dp.callback_query_handler(lambda c: c.data == 'go_to_3')
 async def go_to_3(callback_query: types.CallbackQuery):
     await callback_query.message.edit_text('Пингвины', reply_markup= keyboard4)
-    await bot.send_photo(callback_query.from_user.id, photo='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Emperor_penguin.jpg/273px-Emperor_penguin.jpg')
+    await bot.send_photo(callback_query.from_user.id, photo='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Emperor_penguin.jpg/273px-Emperor_penguin.jpg', caption= 'Пингвин')
 
 @dp.message_handler(commands= 'help')
 async def help(message: types.Message):
