@@ -34,21 +34,23 @@ async def start(message: types.Message):
 async def go_to_1(callback_query: types.CallbackQuery):
     await callback_query.message.edit_text('Есть несколько вариантов картинок: ', reply_markup= keyboard1)
 
+
 @dp.callback_query_handler(lambda c: c.data == 'go_to_1')
 async def go_to_1(callback_query: types.CallbackQuery):
-    await callback_query.message.edit_text('Котики', reply_markup= keyboard2)
-    await bot.send_photo(callback_query.from_user.id, photo= 'https://prochepetsk.ru/userfiles/picfullsize/image-1677667806_9146.jpg', caption= 'Кошка')
+    # await callback_query.message.edit_text('Котики', reply_markup= keyboard2)
+    await bot.send_photo(callback_query.from_user.id, photo= 'https://prochepetsk.ru/userfiles/picfullsize/image-1677667806_9146.jpg', caption= 'Кошка', reply_markup= keyboard1)
+    await bot.delete_message(chat_id=callback_query.from_user.id, message_id=callback_query.message.message_id)
 
 @dp.callback_query_handler(lambda c: c.data == 'go_to_2')
 async def go_to_2(callback_query: types.CallbackQuery):
-    await callback_query.message.edit_text('Собаки', reply_markup= keyboard3)
-    await bot.send_photo(callback_query.from_user.id, photo='https://storage.yandexcloud.net/storage.yasno.media/nat-geo/images/2023/6/28/a9c7c5ba9c2e4caa9330c1ec5c0fc499.max-2000x1000.jpg', caption= 'Собака')
-
+    # await callback_query.message.edit_text('Собаки', reply_markup= keyboard3)
+    await bot.send_photo(callback_query.from_user.id, photo='https://storage.yandexcloud.net/storage.yasno.media/nat-geo/images/2023/6/28/a9c7c5ba9c2e4caa9330c1ec5c0fc499.max-2000x1000.jpg', caption= 'Собака', reply_markup= keyboard1)
+    await bot.delete_message(chat_id=callback_query.from_user.id, message_id=callback_query.message.message_id)
 @dp.callback_query_handler(lambda c: c.data == 'go_to_3')
 async def go_to_3(callback_query: types.CallbackQuery):
-    await callback_query.message.edit_text('Пингвины', reply_markup= keyboard4)
-    await bot.send_photo(callback_query.from_user.id, photo='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Emperor_penguin.jpg/273px-Emperor_penguin.jpg', caption= 'Пингвин')
-
+    # await callback_query.message.edit_text('Пингвины', reply_markup= keyboard4)
+    await bot.send_photo(callback_query.from_user.id, photo='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Emperor_penguin.jpg/273px-Emperor_penguin.jpg', caption= 'Пингвин', reply_markup= keyboard1)
+    await bot.delete_message(chat_id=callback_query.from_user.id, message_id=callback_query.message.message_id)
 @dp.message_handler(commands= 'help')
 async def help(message: types.Message):
     await message.reply('Я могу помочь тебе с ...')
